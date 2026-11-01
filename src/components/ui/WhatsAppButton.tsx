@@ -18,7 +18,7 @@ export function WhatsAppButton({
   if (!cleanNumber) return null;
 
   const defaultMsg =
-    message || "Hello HUEXE Studio, I would like to inquire about booking & casting.";
+    message || "Hello Manasa, I would like to inquire about booking & casting at HUEXE.";
   const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(defaultMsg)}`;
 
   return (
@@ -33,7 +33,7 @@ export function WhatsAppButton({
           hovered ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0"
         }`}
       >
-        WhatsApp Concierge
+        WhatsApp · Manasa Deth
       </div>
 
       {/* Button link */}
@@ -41,7 +41,7 @@ export function WhatsAppButton({
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Contact HUEXE Studio on WhatsApp"
+        aria-label="Contact Manasa Deth at HUEXE Studio on WhatsApp"
         className="group relative flex h-13 w-13 items-center justify-center rounded-full border border-raw/20 bg-obsidian text-raw shadow-2xl transition-all duration-300 hover:scale-105 hover:border-emerald-500/80 hover:bg-emerald-950/40 hover:text-emerald-400 focus:outline-none"
       >
         {/* Subtle pulse ring */}

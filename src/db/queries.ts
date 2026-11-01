@@ -207,7 +207,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsMap = {
   social_tiktok: "https://tiktok.com/@huexe",
   social_youtube: "https://youtube.com/@huexe",
   whatsapp_number: "+919876543210",
-  whatsapp_message: "Hello HUEXE Studio, I would like to inquire about booking & casting.",
+  whatsapp_message: "Hello Manasa, I would like to inquire about booking & casting at HUEXE.",
   resend_api_key: "",
   resend_from_email: "HUEXE Studio <onboarding@resend.dev>",
   admin_notification_email: "studio@huexe.co",

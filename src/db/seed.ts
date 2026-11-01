@@ -484,7 +484,7 @@ async function runSeed() {
       { key: "social_tiktok", value: "https://tiktok.com/@huexe" },
       { key: "social_youtube", value: "https://youtube.com/@huexe" },
       { key: "whatsapp_number", value: "+919876543210" },
-      { key: "whatsapp_message", value: "Hello HUEXE Studio, I would like to inquire about booking & casting." },
+      { key: "whatsapp_message", value: "Hello Manasa, I would like to inquire about booking & casting at HUEXE." },
       { key: "resend_api_key", value: "" },
       { key: "resend_from_email", value: "HUEXE Studio <onboarding@resend.dev>" },
       { key: "admin_notification_email", value: "studio@huexe.co" },
