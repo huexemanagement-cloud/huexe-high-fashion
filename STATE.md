@@ -1,0 +1,53 @@
+# Project State: HUEXE Production Readiness
+
+## Current Phase: Phase 8 — Cloudinary Direct-to-Cloud Ingestion, Anti-AI Slop Condensation & Zero-Leakage Edge Hardening Completed
+- **Status**: COMPLETED & VERIFIED
+- **Last Updated**: 2026-11-01
+
+## Phase Checklist
+- [x] Phase 0: Discovery & Audit (Architecture & Stack documented)
+- [x] GSD Persistent Rules: ARCHITECTURE.md, STACK.md, SPEC.md created
+- [x] Phase 1: Environment & Dependency Installation (All packages installed, `resend` added)
+- [x] Phase 2: Production Hardening & Code Corrections
+  - [x] Fixed ESLint errors in `Nav.tsx`, `SmoothScroll.tsx`, and `Preloader.tsx` (React 19 hooks and JSX comments)
+  - [x] Secured `/admin/login` & removed hardcoded demo credentials from inputs and page text
+  - [x] Redesigned login portal with ultra-luxury Atelier dark aesthetic
+  - [x] Implemented robust in-memory fallback datasets (`FALLBACK_MODELS`, `FALLBACK_CAMPAIGNS`, `FALLBACK_APPLICATIONS`, `FALLBACK_INQUIRIES`)
+  - [x] Removed CMS / Admin link from public footer navigation
+  - [x] Configured `.env` with strict quoting to prevent `#` delimiter truncation
+  - [x] Restructured `loginAction` control flow so Next.js `redirect()` is never swallowed by catch blocks
+- [x] Phase 3: Typographic & Screen Layout Overflow Remediation
+  - [x] Reduced `--step-huge` clamp to `clamp(2.0rem, 4.8vw, 4.75rem)` in `globals.css`
+  - [x] Reduced `--step-xl` clamp to `clamp(1.6rem, 3.0vw, 3.2rem)`
+  - [x] Added `overflow-wrap: break-word`, `word-break: normal`, `max-width: 100%` on `.display-huge` and `.display-xl`
+  - [x] Verified zero text clipping on headlines across 320px–2560px viewports
+- [x] Phase 4: Dynamic Admin Settings & Integration Suite
+  - [x] Added `siteSettings` table in Drizzle schema and seeded defaults in `seed.ts`
+  - [x] Implemented `getSiteSettings()` and `setSiteSettings()` in `queries.ts` with in-memory fallback
+  - [x] Created `src/lib/email.ts` with Resend API client and transactional HTML templates
+  - [x] Wired automated email dispatch to `submitScoutingApplication` and `submitInquiry`
+  - [x] Created `/admin/settings` CMS dashboard with full SEO, Email, Social, and WhatsApp management
+  - [x] Injected Google Tag, GA4, and Microsoft Clarity dynamically into `<head>` in `layout.tsx`
+  - [x] Created floating `WhatsAppButton` with pulse ring, tooltip, and admin-configurable phone number
+  - [x] Created floating `ScrollToTop` with Lenis smooth scrolling integration
+  - [x] Made public `Footer.tsx` dynamically reflect configured social media profiles (Instagram, X, LinkedIn, TikTok, YouTube)
+- [x] Phase 5: Cloudinary Direct Asset Ingestion
+  - [x] Added Cloudinary configuration to CMS settings (`cloud_name`, `api_key`, `api_secret`, `folder`)
+  - [x] Implemented secure server action `getCloudinaryUploadSignatureAction()` for signed client uploads
+  - [x] Upgraded `DropZone.tsx` and `Fields.tsx` (`UploadField`) to upload directly to Cloudinary CDN via signed POST
+  - [x] Fallback storage in `media-cache.ts` when DB/Cloudinary is offline locally
+- [x] Phase 6: Luxury Editorial Condensation & Anti-AI Slop Protocol
+  - [x] Hero: Condensed to crisp brutalist statements ("Defining presence. Built for the global board.")
+  - [x] About/Heritage: Purged corporate filler; focused on South India origins, Paris/Milan desks, and direct placement
+  - [x] Narrative: Transformed panels into "Singular Scouting", "Direct Placement", and "Remote Production"
+  - [x] Services: Streamlined deliverables to "Mother Agency & Board", "Global Event Casting", "Turnkey Remote Shoots"
+  - [x] Apply/Scouting: Rewritten to raw casting directives ("Open board. Natural light. Unedited digitals only.")
+- [x] Phase 7: DevConsole Zero-Leakage & High-Traffic Security
+  - [x] Implemented `getPublicSiteSettings()` to scrub sensitive API keys and secrets from public RSC payloads
+  - [x] Created `rate-limit.ts` with sliding-window IP rate limiter
+  - [x] Added IP rate limiting (max 5 requests per 10 mins) and strict string length bounds to public actions
+  - [x] Verified zero API secret leakage into browser DevTools network tab
+- [x] Phase 8: Empirical Validation
+  - [x] `npm run typecheck` (`tsc --noEmit`) — 0 errors
+  - [x] `npm run lint` (`eslint .`) — 0 errors, 0 warnings
+  - [x] `npm run build` — 100% successful compilation of all 21 routes

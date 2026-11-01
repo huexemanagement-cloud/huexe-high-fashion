@@ -1,0 +1,20 @@
+# ==============================================================================
+# HUEXE — Canonical Edge Redirects & Route Rules
+# ==============================================================================
+
+# Canonical Hostname Normalization (www -> apex)
+https://www.huexe.co/* https://huexe.co/:splat 301!
+
+# Editorial shortcuts & vanity aliases
+/models /#roster 302
+/roster /#roster 302
+/digitals /#apply 302
+/submissions /#apply 302
+/contact /#b2b 302
+/production /#services 302
+
+# Comp card shortcut alias
+/comp-cards /#roster 302
+
+# Admin login alias
+/login /admin/login 301

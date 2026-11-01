@@ -1,0 +1,57 @@
+# ==============================================================================
+# HUEXE — High Fashion Mother Agency & Remote Production Studio
+# Cloudflare Workers / Pages Production Wrangler Configuration
+# ==============================================================================
+
+name = "huexe-high-fashion"
+main = ".open-next/worker.js"
+compatibility_date = "2025-02-15"
+compatibility_flags = [
+  "nodejs_compat",
+]
+
+# Static Assets Configuration (Unified Cloudflare Workers + Static Assets)
+assets = { directory = ".open-next/assets", binding = "ASSETS" }
+
+# ------------------------------------------------------------------------------
+# Cloudflare Pages Build Output (If deploying via Cloudflare Pages dashboard)
+# ------------------------------------------------------------------------------
+# pages_build_output_dir = ".vercel/output/static"
+
+# ------------------------------------------------------------------------------
+# Cloudflare Hyperdrive — Edge PostgreSQL Connection Accelerator & Pooler
+# (Uncomment and set ID after creating: npx wrangler hyperdrive create <name>)
+# ------------------------------------------------------------------------------
+# [[hyperdrive]]
+# binding = "HYPERDRIVE"
+# id = "your-hyperdrive-id"
+# localConnectionString = "postgresql://postgres:postgres@localhost:5432/huexe"
+
+# ------------------------------------------------------------------------------
+# Cloudflare KV — Next.js App Router ISR & Incremental Cache
+# Caches server-rendered route fragments and revalidation tags at edge
+# ------------------------------------------------------------------------------
+# [[kv_namespaces]]
+# binding = "NEXT_CACHE_WORKERS_KV"
+# id = "a1b2c3d4e5f67890abcdef1234567890"
+
+# ------------------------------------------------------------------------------
+# Cloudflare R2 — High-Resolution Fashion Portfolio & Digitals Storage
+# ------------------------------------------------------------------------------
+# [[r2_buckets]]
+# binding = "MEDIA_BUCKET"
+# bucket_name = "huexe-media-assets"
+
+# ------------------------------------------------------------------------------
+# Environment Variables (Public & Non-sensitive)
+# ------------------------------------------------------------------------------
+[vars]
+NODE_ENV = "production"
+NEXT_PUBLIC_SITE_URL = "https://huexe.co"
+
+# ------------------------------------------------------------------------------
+# Production Secrets (Do NOT hardcode in this file; inject via Wrangler CLI):
+#
+#   wrangler secret put DATABASE_URL
+#   wrangler secret put ADMIN_PASSWORD
+# ------------------------------------------------------------------------------

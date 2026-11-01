@@ -1,0 +1,72 @@
+# ==============================================================================
+# HUEXE — High Fashion Mother Agency & Production Studio
+# Cloudflare Pages / Workers Security & Cache Headers
+# ==============================================================================
+
+# Global security rules applied across all routes
+/*
+  # Content Security Policy (CSP)
+  # - scripts: self, unsafe-inline (Next.js hydration, GSAP tickers), cloudflareinsights
+  # - styles: self, unsafe-inline (Tailwind v4 dynamic styles, CSS variables)
+  # - images: self, data:, blob:, Pexels CDN, Unsplash CDN (high fashion portfolio assets)
+  # - media: self, blob:, Pexels video CDN (editorial showreel video playback)
+  # - fonts: self, data:, Google Fonts gstatic
+  # - connect: self, Cloudflare web analytics
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://images.pexels.com https://images.unsplash.com https://videos.pexels.com; media-src 'self' blob: https://videos.pexels.com https://images.pexels.com; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+
+  # HTTP Strict Transport Security (HSTS) - 1 year + subdomains + preload
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Prevent MIME type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Clickjacking mitigation - prevent rendering within iframes
+  X-Frame-Options: DENY
+
+  # Referrer policy - protect private URLs while sending origin on cross-site requests
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Restrict invasive browser features
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(self), battery=(), camera=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), layout-animations=(self), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), sync-xhr=(), usb=(), vr=(), wake-lock=(), xr-spatial-tracking=()
+
+  # Cross-Origin Policies
+  X-Permitted-Cross-Domain-Policies: none
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-site
+
+# Immutable static Next.js assets generated during build
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Media endpoints (streamed from database / storage)
+/api/media/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  X-Content-Type-Options: nosniff
+
+# Static web fonts & assets
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/*.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/*.jpg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/*.webp
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/*.svg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# Admin backoffice protection: never cache sensitive admin dashboards
+/admin/*
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+  Pragma: no-cache
+  Expires: 0
+  X-Robots-Tag: noindex, nofollow, noarchive
