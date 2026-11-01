@@ -1,6 +1,7 @@
 import "server-only";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
+import { kvGet, kvPut } from "@/lib/kv";
 import {
   ensureSeeded,
   FALLBACK_APPLICATIONS,
@@ -220,6 +221,14 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsMap = {
 let inMemorySettings: SiteSettingsMap = { ...DEFAULT_SITE_SETTINGS };
 
 export async function getSiteSettings(): Promise<SiteSettingsMap> {
+  // 1. Check Cloudflare KV first (persisted across all global edge workers)
+  const kvSettings = await kvGet<SiteSettingsMap>("site_settings");
+  if (kvSettings && typeof kvSettings === "object") {
+    inMemorySettings = { ...DEFAULT_SITE_SETTINGS, ...inMemorySettings, ...kvSettings };
+    return inMemorySettings;
+  }
+
+  // 2. Query Postgres database
   return await safe(async () => {
     const rows = await db.select().from(siteSettings);
     if (!rows || rows.length === 0) return inMemorySettings;
@@ -229,6 +238,7 @@ export async function getSiteSettings(): Promise<SiteSettingsMap> {
         (map as Record<string, string>)[row.key] = row.value;
       }
     }
+    inMemorySettings = map;
     return map;
   }, inMemorySettings);
 }
@@ -253,7 +263,15 @@ export async function getPublicSiteSettings() {
 }
 
 export async function setSiteSettings(newSettings: Partial<SiteSettingsMap>): Promise<SiteSettingsMap> {
+  // 1. Mutate in-memory cache
   inMemorySettings = { ...inMemorySettings, ...newSettings };
+
+  // 2. Persist to Cloudflare KV immediately
+  const existingKv = (await kvGet<SiteSettingsMap>("site_settings")) ?? { ...DEFAULT_SITE_SETTINGS };
+  const merged: SiteSettingsMap = { ...existingKv, ...inMemorySettings, ...newSettings };
+  await kvPut("site_settings", merged);
+
+  // 3. Sync to Postgres if connection is available
   await safe(async () => {
     for (const [key, value] of Object.entries(newSettings)) {
       if (value !== undefined) {
@@ -271,6 +289,7 @@ export async function setSiteSettings(newSettings: Partial<SiteSettingsMap>): Pr
     }
     return true;
   }, false);
-  return inMemorySettings;
+
+  return merged;
 }
 

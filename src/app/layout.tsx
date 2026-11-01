@@ -89,6 +89,9 @@ const organizationSchema = {
   sameAs: ["https://www.instagram.com/huexe"],
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const settings = await getSiteSettings();
 

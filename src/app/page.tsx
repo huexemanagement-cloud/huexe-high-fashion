@@ -8,6 +8,7 @@ import { Apply } from "@/components/sections/Apply";
 import { getPublishedCampaigns, getPublishedModels, getPublicSiteSettings } from "@/db/queries";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function HomePage() {
   const [modelRows, campaignRows, settings] = await Promise.all([

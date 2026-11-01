@@ -2,6 +2,7 @@ import { getSiteSettings } from "@/db/queries";
 import { SettingsForm } from "@/components/admin/SettingsForm";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 export const metadata = { title: "Studio Settings & SEO — Huexe CMS" };
 
 export default async function SettingsPage() {

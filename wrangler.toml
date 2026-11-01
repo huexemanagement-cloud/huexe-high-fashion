@@ -19,6 +19,13 @@ assets = { directory = ".open-next/assets", binding = "ASSETS" }
 # pages_build_output_dir = ".vercel/output/static"
 
 # ------------------------------------------------------------------------------
+# Cloudflare KV — HUEXE Distributed Edge Persistence
+# ------------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "HUEXE_KV"
+id = "baf7a0a49b5b4d099e2201421204ad87"
+
+# ------------------------------------------------------------------------------
 # Cloudflare Hyperdrive — Edge PostgreSQL Connection Accelerator & Pooler
 # (Uncomment and set ID after creating: npx wrangler hyperdrive create <name>)
 # ------------------------------------------------------------------------------

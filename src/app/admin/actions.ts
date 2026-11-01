@@ -328,8 +328,11 @@ export async function updateSiteSettingsAction(_prev: FormState, formData: FormD
     };
 
     await setSiteSettings(settings);
-    revalidatePath("/admin/settings");
-    revalidatePath("/");
+    revalidatePath("/admin/settings", "layout");
+    revalidatePath("/admin/settings", "page");
+    revalidatePath("/", "layout");
+    revalidatePath("/", "page");
+    revalidatePath("/talent/[slug]", "layout");
     return { ok: true, message: "Studio settings successfully updated." };
   } catch (error) {
     console.error("[huexe:settings]", error);
