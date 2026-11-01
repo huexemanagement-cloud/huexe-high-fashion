@@ -2,8 +2,8 @@
 # HUEXE — Canonical Edge Redirects & Route Rules
 # ==============================================================================
 
-# Canonical Hostname Normalization (www -> apex)
-https://www.huexe.co/* https://huexe.co/:splat 301!
+# Canonical Hostname Normalization (Configured at Cloudflare Dashboard Redirect Rules)
+# www.huexe.co -> huexe.co
 
 # Editorial shortcuts & vanity aliases
 /models /#roster 302
